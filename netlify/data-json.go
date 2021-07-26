@@ -1,7 +1,7 @@
 package main
 
 import (
-  	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"net/http"
 	"log"
@@ -10,7 +10,7 @@ import (
 )
 func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	// read all response body
-      	//Get the path parameter that was sent
+	//Get the path parameter that was sent
 	//uuid := request.PathParameters["uuid"]
         uuid := request.QueryStringParameters["uuid"]
 
@@ -27,11 +27,8 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
 }
 
 func main() {
-	
     lambda.Start(handler)
 	// make a sample HTTP GET request
-	
-
 }
 
 
