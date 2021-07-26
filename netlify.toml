@@ -1,7 +1,7 @@
 [functions]
   directory = "netlify"
 [build]
-  command = "go build"
+  command = "go build netlify/*"
 [build.environment]
   # Change this path with the path to your repository
   GO_IMPORT_PATH = "github.com/biblio-ai/functions"
