@@ -7,8 +7,9 @@ import (
 	"log"
 	"os"
 	"io/ioutil"
+        "github.com/tidwall/gjson"
 )
-func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
+func json_handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	// read all response body
 	//Get the path parameter that was sent
 	//uuid := request.PathParameters["uuid"]
@@ -31,7 +32,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
 }
 
 func main() {
-    lambda.Start(handler)
+    lambda.Start(json_handler)
 	// make a sample HTTP GET request
 }
 
