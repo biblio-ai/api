@@ -52,7 +52,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "</tr>"
         type Tdata struct {
           Value     string
-          Score float32
+          Score string
         }
         var Tdatas []Tdata
 
@@ -61,8 +61,8 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         for _, name := range Tdatas {
                 blah = blah + "<tr>"
                 blah = blah + "<td>"+name.Value+"</td>"
-                blah_score := 100*name.Score
-                blah = blah + "<td>Sclore: "+fmt.Sprintf("%.2f",blah_score)+"%</td>"
+                blah_score,_ := strconv.ParseFloat(name.Score,32)
+                blah = blah + "<td>Score: "+fmt.Sprintf("%.2f",100*blah_score)+"%</td>"
                 blah = blah + "</tr>"
 }
         blah = blah + "<tr>"
@@ -70,7 +70,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "</tr>"
         type Odata struct {
           Value string
-          Score float32
+          Score string
           X string
           Y string
           Width string
@@ -83,7 +83,10 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         for _, name := range Odatas {
                 blah = blah + "<tr>"
                 blah = blah + "<td>"+name.Value+"</td>"
-                blah = blah + "<td>Score: "+fmt.Sprintf("%.2f",100*name.Score)+" Location: ("+name.X+" "+name.Y+" "+name.Width+" "+name.Height+")</td>"
+                blah_score,_ := strconv.ParseFloat(name.Score,32)
+                blah = blah + "<td>Score: "+fmt.Sprintf("%.2f",100*blah_score)+" Location: ("+name.X+" "+name.Y+" "+name.Width+" "+name.Height+")</td>"
+                blah = blah + "<td>Score: "+fmt.Sprintf("%.2f",name.Score)+" Location: ("+name.X+" "+name.Y+" "+name.Width+" "+name.Height+")</td>"
+                blah = blah + "<td>Score: "+name.Score+" Location: ("+name.X+" "+name.Y+" "+name.Width+" "+name.Height+")</td>"
                 blah = blah + "</tr>"
 }
         blah = blah + "<tr>"
