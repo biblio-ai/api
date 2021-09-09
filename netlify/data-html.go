@@ -104,10 +104,10 @@ for _, name := range result_text_key.Array() {
         type Fdata struct {
           Gender     string
           Age string
-          Postition_height string
-          Postition_left string
-          Postition_top string
-          Postition_width string
+          Position_height string
+          Position_left string
+          Position_top string
+          Position_width string
         }
         var Fdatas []Fdata
 
