@@ -94,8 +94,8 @@ for _, name := range result_text_key.Array() {
         json.Unmarshal([]byte(result_metadata.Raw), &Mdatas)
         for _, name := range Mdatas {
           blah = blah + "<tr>"
-          blah = blah + "<td>Key: "+name.Metadata_key+"</td>"
-          blah = blah + "<td>Value: "+name.Metadata_value+"</td>"
+          blah = blah + "<td>"+name.Metadata_key+":</td>"
+          blah = blah + "<td>"+name.Metadata_value+"</td>"
           blah = blah + "</tr>"
         }
         blah = blah + "<tr>"
@@ -115,8 +115,8 @@ for _, name := range result_text_key.Array() {
         json.Unmarshal([]byte(result_face.Raw), &Fdatas)
         for _, name := range Fdatas {
           blah = blah + "<tr>"
-          blah = blah + "<td>Key: "+name.Gender+"</td>"
-          blah = blah + "<td>Value: "+name.Age+"</td>"
+          blah = blah + "<td>Gender: "+name.Gender+"</td>"
+          blah = blah + "<td>Age: "+name.Age+" Location:("+name.Position_height+" "+name.Position_left+" "+name.Position_top+" "+name.Position_width+"</td>"
           blah = blah + "</tr>"
         }
 
