@@ -47,10 +47,18 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "<tr>"
         blah = blah + "<td><b>Item tag:</b></td><td></td>"
         blah = blah + "</tr>"
-        result := gjson.Get(string(data), "item_tag.#.value")
-for _, name := range result.Array() {
+        type Tdata struct {
+          Value     string
+          Score string
+        }
+        var Tdatas []Tdata
+
+        result := gjson.Get(string(data), "item_tag")
+        json.Unmarshal([]byte(result.Raw), &Tdatas)
+        for _, name := range Odatas {
                 blah = blah + "<tr>"
-                blah = blah + "<td colspan='2'>"+name.String()+"</td>"
+                blah = blah + "<td>"+name.Value+"</td>"
+                blah = blah + "<td>"+name.Score+"</td>"
                 blah = blah + "</tr>"
 }
         blah = blah + "<tr>"
@@ -66,7 +74,7 @@ for _, name := range result.Array() {
         }
         var Odatas []Odata
 
-        result_obj := gjson.Get(string(data), "item_object.#.value")
+        result_obj := gjson.Get(string(data), "item_object")
         json.Unmarshal([]byte(result_obj.Raw), &Odatas)
         for _, name := range Odatas {
                 blah = blah + "<tr>"
