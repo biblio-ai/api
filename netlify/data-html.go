@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"log"
 	"os"
+	"fmt"
+	"strconv"
 	"io/ioutil"
         "github.com/tidwall/gjson"
         "encoding/json"
@@ -42,14 +44,15 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "<td>Description:</td><td>"+gjson.Get(string(data), "item_description.0.value").String()+"</td>"
         blah = blah + "</tr>"
         blah = blah + "<tr>"
-        blah = blah + "<td>Score:</td><td>"+gjson.Get(string(data), "item_description.0.score").String()+"</td>"
+        blah_percentage, _ :=strconv.ParseFloat(gjson.Get(string(data), "item_description.0.score").String(),8)
+        blah = blah + "<td>Score:</td><td>"+fmt.Sprintf("%.2f",100*blah_percentage)+"</td>"
         blah = blah + "</tr>"
         blah = blah + "<tr>"
         blah = blah + "<td><b>Item tag:</b></td><td></td>"
         blah = blah + "</tr>"
         type Tdata struct {
           Value     string
-          Score string
+          Score float32
         }
         var Tdatas []Tdata
 
@@ -58,7 +61,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         for _, name := range Tdatas {
                 blah = blah + "<tr>"
                 blah = blah + "<td>"+name.Value+"</td>"
-                blah = blah + "<td>"+name.Score+"</td>"
+                blah = blah + "<td>Scrore: "+fmt.Sprintf("%.2f",100*name.Score)+"</td>"
                 blah = blah + "</tr>"
 }
         blah = blah + "<tr>"
@@ -66,7 +69,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "</tr>"
         type Odata struct {
           Value string
-          Score string
+          Score float32
           X string
           Y string
           Width string
@@ -79,7 +82,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         for _, name := range Odatas {
                 blah = blah + "<tr>"
                 blah = blah + "<td>"+name.Value+"</td>"
-                blah = blah + "<td>"+name.Score+" Location: ("+name.X+" "+name.Y+" "+name.Width+" "+name.Height+")</td>"
+                blah = blah + "<td>Score: "+fmt.Sprintf("%.2f",100*name.Score)+" Location: ("+name.X+" "+name.Y+" "+name.Width+" "+name.Height+")</td>"
                 blah = blah + "</tr>"
 }
         blah = blah + "<tr>"
