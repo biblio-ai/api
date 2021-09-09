@@ -94,10 +94,32 @@ for _, name := range result_text_key.Array() {
         json.Unmarshal([]byte(result_metadata.Raw), &Mdatas)
         for _, name := range Mdatas {
           blah = blah + "<tr>"
-          blah = blah + "<td>Key phrase:</td><td>"+name.Metadata_key+"</td>"
-          blah = blah + "<td>Key phrase:</td><td>"+name.Metadata_value+"</td>"
+          blah = blah + "<td>Key: "+name.Metadata_key+"</td>"
+          blah = blah + "<td>Value: "+name.Metadata_value+"</td>"
           blah = blah + "</tr>"
         }
+        blah = blah + "<tr>"
+        blah = blah + "<td><b>Item faces:</b></td><td></td>"
+        blah = blah + "</tr>"
+        type Fdata struct {
+          Gender     string
+          Age string
+          Postition_height string
+          Postition_left string
+          Postition_top string
+          Postition_width string
+        }
+        var Fdatas []Fdata
+
+        result_face := gjson.Get(string(data), "item_face")
+        json.Unmarshal([]byte(result_face.Raw), &Fdatas)
+        for _, name := range Fdatas {
+          blah = blah + "<tr>"
+          blah = blah + "<td>Key: "+name.Gender+"</td>"
+          blah = blah + "<td>Value: "+name.Age+"</td>"
+          blah = blah + "</tr>"
+        }
+
         blah = blah + "</table>"
         // Iterating address objects
         /*
