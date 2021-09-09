@@ -65,12 +65,12 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "<td><b>Item object:</b></td><td></td>"
         blah = blah + "</tr>"
         type Odata struct {
-          Value     string
+          Value string
           Score string
-          x string
-          y string
-          width string
-          height string
+          X string
+          Y string
+          Width string
+          Height string
         }
         var Odatas []Odata
 
@@ -79,7 +79,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         for _, name := range Odatas {
                 blah = blah + "<tr>"
                 blah = blah + "<td>"+name.Value+"</td>"
-                blah = blah + "<td>"+name.Score+" Location: ("+name.x+" "+name.y+" "+name.width+" "+name.height+")</td>"
+                blah = blah + "<td>"+name.Score+" Location: ("+name.X+" "+name.Y+" "+name.Width+" "+name.Height+")</td>"
                 blah = blah + "</tr>"
 }
         blah = blah + "<tr>"
