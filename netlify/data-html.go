@@ -84,9 +84,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
                 blah = blah + "<tr>"
                 blah = blah + "<td>"+name.Value+"</td>"
                 blah_score,_ := strconv.ParseFloat(name.Score,32)
-                blah = blah + "<td>Score: "+fmt.Sprintf("%.2f",100*blah_score)+" Location: ("+name.X+" "+name.Y+" "+name.Width+" "+name.Height+")</td>"
-                blah = blah + "<td>Score: "+fmt.Sprintf("%.2f",name.Score)+" Location: ("+name.X+" "+name.Y+" "+name.Width+" "+name.Height+")</td>"
-                blah = blah + "<td>Score: "+name.Score+" Location: ("+name.X+" "+name.Y+" "+name.Width+" "+name.Height+")</td>"
+                blah = blah + "<td>Score: "+fmt.Sprintf("%.2f",100*blah_score)+"% Location: ("+name.X+" "+name.Y+" "+name.Width+" "+name.Height+")</td>"
                 blah = blah + "</tr>"
 }
         blah = blah + "<tr>"
