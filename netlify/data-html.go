@@ -8,6 +8,7 @@ import (
 	"os"
 	"io/ioutil"
         "github.com/tidwall/gjson"
+        "encoding/json"
 )
 func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	// read all response body
@@ -79,48 +80,66 @@ for _, name := range result_text_key.Array() {
                 blah = blah + "<td>Key phrase:</td><td>"+name.String()+"</td>"
                 blah = blah + "</tr>"
 }
+        blah = blah + "<tr>"
+        blah = blah + "<td><b>Item metadata:</b></td><td></td>"
+        blah = blah + "</tr>"
+
+        type Mdata struct {
+          Metadata_key     string
+          Metadata_value string
+        }
+        var Mdatas []Mdata
+
+        result_metadata := gjson.Get(string(data), "item_metadata")
+        json.Unmarshal([]byte(result_metadata.Raw), &Mdatas)
+        for _, name := range Mdatas {
+          blah = blah + "<tr>"
+          blah = blah + "<td>Key phrase:</td><td>"+name.Metadata_key+"</td>"
+          blah = blah + "<td>Key phrase:</td><td>"+name.Metadata_value+"</td>"
+          blah = blah + "</tr>"
+        }
         blah = blah + "</table>"
         // Iterating address objects
         /*
-	for key, child := range jsonParsed.Search("employees", "address").ChildrenMap() {
-		fmt.Printf("Key=>%v, Value=>%v\n", key, child.Data().(string))
-	}
+        for key, child := range jsonParsed.Search("employees", "address").ChildrenMap() {
+          fmt.Printf("Key=>%v, Value=>%v\n", key, child.Data().(string))
+        }
         */
 
-	return &events.APIGatewayProxyResponse{
-		StatusCode:        200,
-		Headers:           map[string]string{"Content-Type": "text/html"},
-		MultiValueHeaders: http.Header{"Set-Cookie": {"Ding", "Ping"}},
-                Body:              string(blah),
-		IsBase64Encoded:   false,
-	}, nil
-}
+        return &events.APIGatewayProxyResponse{
+          StatusCode:        200,
+          Headers:           map[string]string{"Content-Type": "text/html"},
+          MultiValueHeaders: http.Header{"Set-Cookie": {"Ding", "Ping"}},
+          Body:              string(blah),
+          IsBase64Encoded:   false,
+        }, nil
+      }
 
-func main() {
-	
-    lambda.Start(handler)
-	// make a sample HTTP GET request
-	
+      func main() {
 
-}
+        lambda.Start(handler)
+        // make a sample HTTP GET request
 
 
-func Request(url string) []byte {
-    req, err := http.NewRequest("GET", url, nil)
-    if err != nil {
-        log.Fatal(err)
-    }
-    req.Header.Set("apikey",  os.Getenv("SUPABASE_API_KEY"))
-    req.Header.Set("Accept",  "application/vnd.pgrst.object+json")
-    resp, err := http.DefaultClient.Do(req)
-    if err != nil {
-        log.Fatal(err)
-    }
-    defer resp.Body.Close()
-    body, err := ioutil.ReadAll(resp.Body)
-    if err != nil {
-        log.Fatal(err)
-    }
-    return body
-}
+      }
+
+
+      func Request(url string) []byte {
+        req, err := http.NewRequest("GET", url, nil)
+        if err != nil {
+          log.Fatal(err)
+        }
+        req.Header.Set("apikey",  os.Getenv("SUPABASE_API_KEY"))
+        req.Header.Set("Accept",  "application/vnd.pgrst.object+json")
+        resp, err := http.DefaultClient.Do(req)
+        if err != nil {
+          log.Fatal(err)
+        }
+        defer resp.Body.Close()
+        body, err := ioutil.ReadAll(resp.Body)
+        if err != nil {
+          log.Fatal(err)
+        }
+        return body
+      }
 
