@@ -39,10 +39,10 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "<td><b>Item description:</b></td><td></td>"
         blah = blah + "</tr>"
         blah = blah + "<tr>"
-        blah = blah + "<td>Item description:</td><td>"+gjson.Get(string(data), "item_description.0.value").String()+"</td>"
+        blah = blah + "<td>Description:</td><td>"+gjson.Get(string(data), "item_description.0.value").String()+"</td>"
         blah = blah + "</tr>"
         blah = blah + "<tr>"
-        blah = blah + "<td>Item Score:</td><td>"+gjson.Get(string(data), "item_description.0.score").String()+"</td>"
+        blah = blah + "<td>Score:</td><td>"+gjson.Get(string(data), "item_description.0.score").String()+"</td>"
         blah = blah + "</tr>"
         blah = blah + "<tr>"
         blah = blah + "<td><b>Item tag:</b></td><td></td>"
@@ -50,16 +50,28 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         result := gjson.Get(string(data), "item_tag.#.value")
 for _, name := range result.Array() {
                 blah = blah + "<tr>"
-                blah = blah + "<td>Item tag:</td><td>"+name.String()+"</td>"
+                blah = blah + "<td colspan='2'>"+name.String()+"</td>"
                 blah = blah + "</tr>"
 }
         blah = blah + "<tr>"
         blah = blah + "<td><b>Item object:</b></td><td></td>"
         blah = blah + "</tr>"
+        type Odata struct {
+          Value     string
+          Score string
+          x string
+          y string
+          width string
+          height string
+        }
+        var Odatas []Odata
+
         result_obj := gjson.Get(string(data), "item_object.#.value")
-for _, name := range result_obj.Array() {
+        json.Unmarshal([]byte(result_obj.Raw), &Odatas)
+        for _, name := range Odatas {
                 blah = blah + "<tr>"
-                blah = blah + "<td>Item object:</td><td>"+name.String()+"</td>"
+                blah = blah + "<td>"+name.Value+"</td>"
+                blah = blah + "<td>"+name.Score+" Location: ("+name.x+" "+name.y+" "+name.width+" "+name.height+")</td>"
                 blah = blah + "</tr>"
 }
         blah = blah + "<tr>"
@@ -68,7 +80,7 @@ for _, name := range result_obj.Array() {
         result_text := gjson.Get(string(data), "item_text.#.value")
 for _, name := range result_text.Array() {
                 blah = blah + "<tr>"
-                blah = blah + "<td>Item description:</td><td>"+name.String()+"</td>"
+                blah = blah + "<td colspan='2'>"+name.String()+"</td>"
                 blah = blah + "</tr>"
 }
         blah = blah + "<tr>"
@@ -77,7 +89,7 @@ for _, name := range result_text.Array() {
         result_text_key := gjson.Get(string(data), "item_text_key_phrase.#.value")
 for _, name := range result_text_key.Array() {
                 blah = blah + "<tr>"
-                blah = blah + "<td>Key phrase:</td><td>"+name.String()+"</td>"
+                blah = blah + "<td colspan='2'>"+name.String()+"</td>"
                 blah = blah + "</tr>"
 }
         blah = blah + "<tr>"
@@ -116,7 +128,7 @@ for _, name := range result_text_key.Array() {
         for _, name := range Fdatas {
           blah = blah + "<tr>"
           blah = blah + "<td>Gender: "+name.Gender+"</td>"
-          blah = blah + "<td>Age: "+name.Age+" Location:("+name.Position_height+" "+name.Position_left+" "+name.Position_top+" "+name.Position_width+"</td>"
+          blah = blah + "<td>Age: "+name.Age+" Location:("+name.Position_height+" "+name.Position_left+" "+name.Position_top+" "+name.Position_width+")</td>"
           blah = blah + "</tr>"
         }
 
