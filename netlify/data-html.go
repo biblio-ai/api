@@ -55,7 +55,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
 
         result := gjson.Get(string(data), "item_tag")
         json.Unmarshal([]byte(result.Raw), &Tdatas)
-        for _, name := range Odatas {
+        for _, name := range Tdatas {
                 blah = blah + "<tr>"
                 blah = blah + "<td>"+name.Value+"</td>"
                 blah = blah + "<td>"+name.Score+"</td>"
