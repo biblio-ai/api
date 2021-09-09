@@ -45,7 +45,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "</tr>"
         blah = blah + "<tr>"
         blah_percentage, _ :=strconv.ParseFloat(gjson.Get(string(data), "item_description.0.score").String(),8)
-        blah = blah + "<td>Score:</td><td>"+fmt.Sprintf("%.2f",100*blah_percentage)+"</td>"
+        blah = blah + "<td>Score:</td><td>"+fmt.Sprintf("%.2f",100*blah_percentage)+"%</td>"
         blah = blah + "</tr>"
         blah = blah + "<tr>"
         blah = blah + "<td><b>Item tag:</b></td><td></td>"
@@ -61,7 +61,8 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         for _, name := range Tdatas {
                 blah = blah + "<tr>"
                 blah = blah + "<td>"+name.Value+"</td>"
-                blah = blah + "<td>Scrore: "+fmt.Sprintf("%.2f",100*name.Score)+"</td>"
+                blah_score := 100*name.Score
+                blah = blah + "<td>Sclore: "+fmt.Sprintf("%.2f",blah_score)+"%</td>"
                 blah = blah + "</tr>"
 }
         blah = blah + "<tr>"
