@@ -148,7 +148,7 @@ for _, name := range result_text_key.Array() {
         blah = blah + "<td><b>Item tag:</b></td><td></td>"
         blah = blah + "</tr>"
         blah = blah + "<tr>"
-        blah = blah + "<td><b>Item object:</b></td><td></td>"
+        blah = blah + "<td><b>Item Entity:</b></td><td></td>"
         blah = blah + "</tr>"
         type Edata struct {
           Value string
