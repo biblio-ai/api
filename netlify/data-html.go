@@ -22,7 +22,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
 	data_id := Request( "https://hgrqtmovrbvpvxjqungh.supabase.co/rest/v1/item_metadata?metadata_key=eq."+metadata_key+"&metadata_value=eq."+metadata_value )
         request_data_id :=gjson.Get(string(data_id), "item_id").String()
 
-	data := Request( "https://hgrqtmovrbvpvxjqungh.supabase.co/rest/v1/item?select=id,url,item_adult(value,score),item_brand(value,score,x,y,width,height),item_category(value,score),item_celebrity(value,score,position_height,position_left,position_top,position_width),item_color(black_and_white,accent_color,dominant_color_background,dominant_color_foreground,dominant_colors),item_description(value,score),item_face(gender,age,position_height,position_left,position_top,position_width),item_landmark(value,score),item_object(value,score,x,y,width,height),item_racy(value,score),item_tag(value,score),item_text(line,value,box),item_text_entity(value,match_text,text_type,text_sub_type,text_score),item_text_key_phrase(value),item_text_language(value,code,score),item_text_sentiment(score),item_metadata(metadata_key,metadata_value)&and=(id.eq."+request_data_id+")")
+	data := Request( "https://hgrqtmovrbvpvxjqungh.supabase.co/rest/v1/item?select=id,url,item_adult(value,score),item_brand(value,score,x,y,width,height),item_category(value,score),item_celebrity(value,score,position_height,position_left,position_top,position_width),item_color(black_and_white,accent_color,dominant_color_background,dominant_color_foreground,dominant_colors),item_description(value,score),item_face(gender,age,position_height,position_left,position_top,position_width),item_landmark(value,score),item_object(value,score,x,y,width,height),item_racy(value,score),item_tag(value,score),item_text(line,value,box),item_text_entity(value,match_text,text_type,text_sub_type,text_score),item_text_key_phrase(value),item_text_language(value,code,score),item_text_sentiment(score),item_metadata(metadata_key,metadata_value),item_log(section,value)&and=(id.eq."+request_data_id+")")
 	// print `data` as a string
         //blah := string(data)
        // value := gjson.Get(string(data), "item_description.0.value")
@@ -144,6 +144,44 @@ for _, name := range result_text_key.Array() {
           blah = blah + "<td>Age: "+name.Age+" Location:("+name.Position_height+" "+name.Position_left+" "+name.Position_top+" "+name.Position_width+")</td>"
           blah = blah + "</tr>"
         }
+        blah = blah + "<tr>"
+        blah = blah + "<td><b>Item tag:</b></td><td></td>"
+        blah = blah + "</tr>"
+        blah = blah + "<tr>"
+        blah = blah + "<td><b>Item object:</b></td><td></td>"
+        blah = blah + "</tr>"
+        type Edata struct {
+          Value string
+          Match_text string
+          Text_type string
+          Text_sub_type string
+          Text_score string
+        }
+        var Edatas []Edata
+
+        result_ent := gjson.Get(string(data), "item_text_entity")
+        json.Unmarshal([]byte(result_ent.Raw), &Edatas)
+        for _, name := range Edatas {
+                blah = blah + "<tr>"
+                blah = blah + "<td>"+name.Value+"</td>"
+                blah_score,_ := strconv.ParseFloat(name.Text_score,32)
+                blah = blah + "<td>Score: "+fmt.Sprintf("%.2f",100*blah_score)+"% Match text: "+name.Match_text+"  Type: "+name.Text_type+" Sub-Type: "+name.Text_sub_type+"</td>"
+                blah = blah + "</tr>"
+}
+        type Ldata struct {
+          Section     string
+          Value string
+        }
+        var Ldatas []Ldata
+
+        result_log := gjson.Get(string(data), "item_log")
+        json.Unmarshal([]byte(result_log.Raw), &Ldatas)
+        for _, name := range Ldatas {
+                blah = blah + "<tr>"
+                blah = blah + "<td>"+name.Section+"</td>"
+                blah = blah + "<td>"+name.Value+"</td>"
+                blah = blah + "</tr>"
+}
 
         blah = blah + "</table>"
         // Iterating address objects
