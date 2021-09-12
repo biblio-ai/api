@@ -38,7 +38,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "<br />"
 
         blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
-        blah = blah + "<tr><th colspan='2'>Description:</th><tr>"
+        blah = blah + "<thead><tr><th colspan='2'>Description:</th><tr>"
         blah = blah + "</thead><tbody>"
         blah = blah + "<tr>"
         blah = blah + "<td>Description:</td><td>"+gjson.Get(string(data), "item_description.0.value").String()+"</td>"
@@ -52,7 +52,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "<br />"
 
         blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
-        blah = blah + "<tr><th colspan='2'>Tags:</th><tr>"
+        blah = blah + "<thead><tr><th colspan='2'>Tags:</th><tr>"
         blah = blah + "</thead><tbody>"
         type Tdata struct {
           Value     string
@@ -74,7 +74,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "<br />"
 
         blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
-        blah = blah + "<tr><th colspan='2'>Objects:</th><tr>"
+        blah = blah + "<thead><tr><th colspan='2'>Objects:</th><tr>"
         blah = blah + "</thead><tbody>"
         type Odata struct {
           Value string
@@ -101,7 +101,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "<br />"
 
         blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
-        blah = blah + "<tr><th colspan='2'>Text:</th><tr>"
+        blah = blah + "<thead><tr><th colspan='2'>Text:</th><tr>"
         blah = blah + "</thead><tbody>"
         result_text := gjson.Get(string(data), "item_text.#.value")
                 blah = blah + "<tr>"
@@ -116,7 +116,7 @@ for _, name := range result_text.Array() {
         blah = blah + "<br />"
 
         blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
-        blah = blah + "<tr><th colspan='2'>Key phrases:</th><tr>"
+        blah = blah + "<thead><tr><th colspan='2'>Key phrases:</th><tr>"
         blah = blah + "</thead><tbody>"
         result_text_key := gjson.Get(string(data), "item_text_key_phrase.#.value")
 for _, name := range result_text_key.Array() {
@@ -130,7 +130,7 @@ for _, name := range result_text_key.Array() {
 
 
         blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
-        blah = blah + "<tr><th colspan='2'>Faces:</th><tr>"
+        blah = blah + "<thead><tr><th colspan='2'>Faces:</th><tr>"
         blah = blah + "</thead><tbody>"
         type Fdata struct {
           Gender     string
@@ -155,7 +155,7 @@ for _, name := range result_text_key.Array() {
         blah = blah + "<br />"
 
         blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
-        blah = blah + "<tr><th colspan='2'>Entities:</th><tr>"
+        blah = blah + "<thead><tr><th colspan='2'>Entities:</th><tr>"
         blah = blah + "</thead><tbody>"
         type Edata struct {
           Value string
@@ -180,13 +180,7 @@ for _, name := range result_text_key.Array() {
         blah = blah + "<br />"
 
         blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
-        blah = blah + "<tr><th colspan='2'>Logs:</th><tr>"
-        blah = blah + "</thead><tbody>"
-
-        blah = blah + "<br />"
-
-        blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
-        blah = blah + "<tr><th colspan='2'>Metadata:</th><tr>"
+        blah = blah + "<thead><tr><th colspan='2'>Metadata:</th><tr>"
         blah = blah + "</thead><tbody>"
 
         type Mdata struct {
@@ -206,6 +200,11 @@ for _, name := range result_text_key.Array() {
         blah = blah + "</tbody></table>"
 
         blah = blah + "<br />"
+
+        blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
+        blah = blah + "<thead><tr><th colspan='2'>Logs:</th><tr>"
+        blah = blah + "</thead><tbody>"
+
         type Ldata struct {
           Section     string
           Value string
