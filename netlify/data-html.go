@@ -31,7 +31,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "<thead>"
         blah = blah + "<tr><th colspan='2'>API data:</th></tr>"
         blah = blah + "</thead><tbody>"
-        blah = blah + "<tr><td>Key:</td><td>"+metadata_key+"</td></tr>"
+        blah = blah + "<tr><td style='width:20%;'>Key:</td><td>"+metadata_key+"</td></tr>"
         blah = blah + "<tr><td>Value:</td><td>"+metadata_value+"</td></tr>"
         blah = blah + "</tbody></table>"
 
@@ -41,7 +41,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         blah = blah + "<thead><tr><th colspan='2'>Description:</th><tr>"
         blah = blah + "</thead><tbody>"
         blah = blah + "<tr>"
-        blah = blah + "<td>Description:</td><td>"+gjson.Get(string(data), "item_description.0.value").String()+"</td>"
+        blah = blah + "<td style='width:20%;'>Description:</td><td>"+gjson.Get(string(data), "item_description.0.value").String()+"</td>"
         blah = blah + "</tr>"
         blah = blah + "<tr>"
         blah_percentage, _ :=strconv.ParseFloat(gjson.Get(string(data), "item_description.0.score").String(),8)
@@ -64,7 +64,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         json.Unmarshal([]byte(result.Raw), &Tdatas)
         for _, name := range Tdatas {
                 blah = blah + "<tr>"
-                blah = blah + "<td>"+name.Value+"</td>"
+                blah = blah + "<td style='width:20%;'>"+name.Value+"</td>"
                 blah_score,_ := strconv.ParseFloat(name.Score,32)
                 blah = blah + "<td>Score: "+fmt.Sprintf("%.2f",100*blah_score)+"%</td>"
                 blah = blah + "</tr>"
@@ -90,7 +90,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         json.Unmarshal([]byte(result_obj.Raw), &Odatas)
         for _, name := range Odatas {
                 blah = blah + "<tr>"
-                blah = blah + "<td>"+name.Value+"</td>"
+                blah = blah + "<td style='width:20%;'>"+name.Value+"</td>"
                 blah_score,_ := strconv.ParseFloat(name.Score,32)
                 blah = blah + "<td>Score: "+fmt.Sprintf("%.2f",100*blah_score)+"% Location: ("+name.X+" "+name.Y+" "+name.Width+" "+name.Height+")</td>"
                 blah = blah + "</tr>"
@@ -146,7 +146,7 @@ for _, name := range result_text_key.Array() {
         json.Unmarshal([]byte(result_face.Raw), &Fdatas)
         for _, name := range Fdatas {
           blah = blah + "<tr>"
-          blah = blah + "<td>Gender: "+name.Gender+"</td>"
+          blah = blah + "<td style='width:20%;'>Gender: "+name.Gender+"</td>"
           blah = blah + "<td>Age: "+name.Age+" Location:("+name.Position_height+" "+name.Position_left+" "+name.Position_top+" "+name.Position_width+")</td>"
           blah = blah + "</tr>"
         }
@@ -170,7 +170,7 @@ for _, name := range result_text_key.Array() {
         json.Unmarshal([]byte(result_ent.Raw), &Edatas)
         for _, name := range Edatas {
                 blah = blah + "<tr>"
-                blah = blah + "<td>"+name.Value+"</td>"
+                blah = blah + "<td style='width:20%;'>"+name.Value+"</td>"
                 blah_score,_ := strconv.ParseFloat(name.Text_score,32)
                 blah = blah + "<td>Score: "+fmt.Sprintf("%.2f",100*blah_score)+"% Match text: "+name.Match_text+"  Type: "+name.Text_type+" Sub-Type: "+name.Text_sub_type+"</td>"
                 blah = blah + "</tr>"
@@ -193,7 +193,7 @@ for _, name := range result_text_key.Array() {
         json.Unmarshal([]byte(result_metadata.Raw), &Mdatas)
         for _, name := range Mdatas {
           blah = blah + "<tr>"
-          blah = blah + "<td>"+name.Metadata_key+":</td>"
+          blah = blah + "<td style='width:20%;'>"+name.Metadata_key+":</td>"
           blah = blah + "<td>"+name.Metadata_value+"</td>"
           blah = blah + "</tr>"
         }
@@ -215,7 +215,7 @@ for _, name := range result_text_key.Array() {
         json.Unmarshal([]byte(result_log.Raw), &Ldatas)
         for _, name := range Ldatas {
                 blah = blah + "<tr>"
-                blah = blah + "<td>"+name.Section+"</td>"
+                blah = blah + "<td style='width:20%;'>"+name.Section+"</td>"
                 blah = blah + "<td>"+name.Value+"</td>"
                 blah = blah + "</tr>"
 }
