@@ -27,7 +27,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         //blah := string(data)
        // value := gjson.Get(string(data), "item_description.0.value")
         var blah string
-        blah = "<table>"
+        blah = "<html><head><link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'></head><body><table class='table'>"
         blah = blah + "<tr><td>Key:</td><td>"+metadata_key+"</td></tr>"
         blah = blah + "<tr><td>Value:</td><td>"+metadata_value+"</td></tr>"
         blah = blah + "<tr><td>Origin tem ID:</td><td>"+gjson.Get(string(data_id), "item_id").String()+"</td></tr>"
