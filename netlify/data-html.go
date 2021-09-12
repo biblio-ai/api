@@ -27,23 +27,17 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         //blah := string(data)
        // value := gjson.Get(string(data), "item_description.0.value")
         var blah string
-        blah = "<html><head><link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'></head><body><table class='table'>"
+        blah = "<html><head><link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'></head><body><table class='table table-striped table-bordered table-sm table'>"
         blah = blah + "<thead>"
-        blah = blah + "<tr><th colspan='2'>Metadata:</th></tr>"
+        blah = blah + "<tr><th colspan='2'>API data:</th></tr>"
         blah = blah + "</thead><tbody>"
         blah = blah + "<tr><td>Key:</td><td>"+metadata_key+"</td></tr>"
         blah = blah + "<tr><td>Value:</td><td>"+metadata_value+"</td></tr>"
-        blah = blah + "<tr>" 
-        blah = blah + "<td>Item ID:</td><td>"+gjson.Get(string(data), "id").String()+"</td>"
-        blah = blah + "</tr>"
-        blah = blah + "<tr>"
-        blah = blah + "<td>Item URL:</td><td>"+gjson.Get(string(data), "url").String()+"</td>"
-        blah = blah + "</tr>"
         blah = blah + "</tbody></table>"
 
         blah = blah + "<br />"
 
-        blah = blah + "<table class='table'>"
+        blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
         blah = blah + "<tr><th colspan='2'>Description:</th><tr>"
         blah = blah + "</thead><tbody>"
         blah = blah + "<tr>"
@@ -57,7 +51,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
 
         blah = blah + "<br />"
 
-        blah = blah + "<table class='table'>"
+        blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
         blah = blah + "<tr><th colspan='2'>Tags:</th><tr>"
         blah = blah + "</thead><tbody>"
         type Tdata struct {
@@ -79,7 +73,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
 
         blah = blah + "<br />"
 
-        blah = blah + "<table class='table'>"
+        blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
         blah = blah + "<tr><th colspan='2'>Objects:</th><tr>"
         blah = blah + "</thead><tbody>"
         type Odata struct {
@@ -106,20 +100,22 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
 
         blah = blah + "<br />"
 
-        blah = blah + "<table class='table'>"
+        blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
         blah = blah + "<tr><th colspan='2'>Text:</th><tr>"
         blah = blah + "</thead><tbody>"
         result_text := gjson.Get(string(data), "item_text.#.value")
-for _, name := range result_text.Array() {
                 blah = blah + "<tr>"
-                blah = blah + "<td colspan='2'>"+name.String()+"</td>"
-                blah = blah + "</tr>"
+                blah = blah + "<td colspan='2'>"
+for _, name := range result_text.Array() {
+                blah = blah + name.String()+"<br />"
 }
+                blah = blah + "</td>"
+                blah = blah + "</tr>"
         blah = blah + "</tbody></table>"
 
         blah = blah + "<br />"
 
-        blah = blah + "<table class='table'>"
+        blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
         blah = blah + "<tr><th colspan='2'>Key phrases:</th><tr>"
         blah = blah + "</thead><tbody>"
         result_text_key := gjson.Get(string(data), "item_text_key_phrase.#.value")
@@ -132,29 +128,8 @@ for _, name := range result_text_key.Array() {
 
         blah = blah + "<br />"
 
-        blah = blah + "<table class='table'>"
-        blah = blah + "<tr><th colspan='2'>Metadata:</th><tr>"
-        blah = blah + "</thead><tbody>"
 
-        type Mdata struct {
-          Metadata_key     string
-          Metadata_value string
-        }
-        var Mdatas []Mdata
-
-        result_metadata := gjson.Get(string(data), "item_metadata")
-        json.Unmarshal([]byte(result_metadata.Raw), &Mdatas)
-        for _, name := range Mdatas {
-          blah = blah + "<tr>"
-          blah = blah + "<td>"+name.Metadata_key+":</td>"
-          blah = blah + "<td>"+name.Metadata_value+"</td>"
-          blah = blah + "</tr>"
-        }
-        blah = blah + "</tbody></table>"
-
-        blah = blah + "<br />"
-
-        blah = blah + "<table class='table'>"
+        blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
         blah = blah + "<tr><th colspan='2'>Faces:</th><tr>"
         blah = blah + "</thead><tbody>"
         type Fdata struct {
@@ -179,7 +154,7 @@ for _, name := range result_text_key.Array() {
 
         blah = blah + "<br />"
 
-        blah = blah + "<table class='table'>"
+        blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
         blah = blah + "<tr><th colspan='2'>Entities:</th><tr>"
         blah = blah + "</thead><tbody>"
         type Edata struct {
@@ -204,9 +179,33 @@ for _, name := range result_text_key.Array() {
 
         blah = blah + "<br />"
 
-        blah = blah + "<table class='table'>"
+        blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
         blah = blah + "<tr><th colspan='2'>Logs:</th><tr>"
         blah = blah + "</thead><tbody>"
+
+        blah = blah + "<br />"
+
+        blah = blah + "<table class='table table-striped table-bordered table-sm table'>"
+        blah = blah + "<tr><th colspan='2'>Metadata:</th><tr>"
+        blah = blah + "</thead><tbody>"
+
+        type Mdata struct {
+          Metadata_key     string
+          Metadata_value string
+        }
+        var Mdatas []Mdata
+
+        result_metadata := gjson.Get(string(data), "item_metadata")
+        json.Unmarshal([]byte(result_metadata.Raw), &Mdatas)
+        for _, name := range Mdatas {
+          blah = blah + "<tr>"
+          blah = blah + "<td>"+name.Metadata_key+":</td>"
+          blah = blah + "<td>"+name.Metadata_value+"</td>"
+          blah = blah + "</tr>"
+        }
+        blah = blah + "</tbody></table>"
+
+        blah = blah + "<br />"
         type Ldata struct {
           Section     string
           Value string
