@@ -133,8 +133,6 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
 	blah = blah + "<thead><tr><th colspan='2'>Faces:</th><tr>"
 	blah = blah + "</thead><tbody>"
 	type Fdata struct {
-		Gender          string
-		Age             string
 		Position_height string
 		Position_left   string
 		Position_top    string
@@ -146,8 +144,8 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
 	json.Unmarshal([]byte(result_face.Raw), &Fdatas)
 	for _, name := range Fdatas {
 		blah = blah + "<tr>"
-		blah = blah + "<td style='width:20%;'>Gender: " + name.Gender + "</td>"
-		blah = blah + "<td>Age: " + name.Age + " Location:(" + name.Position_height + " " + name.Position_left + " " + name.Position_top + " " + name.Position_width + ")</td>"
+		blah = blah + "<td style='width:20%;'>Location: </td>"
+		blah = blah + "<td> " + name.Position_height + " " + name.Position_left + " " + name.Position_top + " " + name.Position_width + "</td>"
 		blah = blah + "</tr>"
 	}
 	blah = blah + "</tbody></table>"
