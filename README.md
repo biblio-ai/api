@@ -6,8 +6,8 @@ The Biblio.ai API is a collection of serverless functions - currently running on
 
 Assuming the image `cor-green_to_swinburne_1920.jpg` has already been imported and AI enriched, we can use the below values to query the API for the metadta
 
-`metadata_key` = `metadata_identifier_file_id`
-`metadata_value` = `cor-green_to_swinburne_1920.jpg`
+* `metadata_key` = `metadata_identifier_file_id`
+* `metadata_value` = `cor-green_to_swinburne_1920.jpg`
 
 `metadata_key` can be any of the values imported into Biblio.AI for that image - from the OAI feed - such and handle, id etc..
 
@@ -20,19 +20,24 @@ For JSON use `data-json` in the url
 
 ## HTML
 
+Example URL query
+
 ```
 https://api.biblio.ai/.netlify/functions/data-html?metadata_key=metadata_identifier_file_id&metadata_value=cor-green_to_swinburne_1920.jpg
 ```
+HTML output
 
 ![image](https://user-images.githubusercontent.com/249520/137823169-1b313a0e-2ad2-4f87-9e88-9a29ad0c04e3.png)
 
 
 ## JSON
 
+Example URL query
 ```
 https://api.biblio.ai/.netlify/functions/data-json?metadata_key=metadata_identifier_file_id&metadata_value=cor-green_to_swinburne_1920.jpg
 ```
 
+JSON output
 ```
 {
   "id": "2232bcca-e3f3-4f30-8499-5e8f9b6ef9e9",
