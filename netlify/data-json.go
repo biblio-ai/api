@@ -29,6 +29,7 @@ func json_handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProx
 		Headers:           map[string]string{
 					"Content-Type": "text/json",
 				  	"Access-Control-Allow-Origin": "*",
+					"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
 		},
 		MultiValueHeaders: http.Header{"Set-Cookie": {"Ding", "Ping"}},
 		Body:              blah,
