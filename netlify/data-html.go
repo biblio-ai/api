@@ -228,7 +228,11 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
 
 	return &events.APIGatewayProxyResponse{
 		StatusCode:        200,
-		Headers:           map[string]string{"Content-Type": "text/html"},
+		Headers:           map[string]string{
+					"Content-Type": "text/html",
+				  	"Access-Control-Allow-Origin": "*",
+					"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+		},
 		MultiValueHeaders: http.Header{"Set-Cookie": {"Ding", "Ping"}},
 		Body:              string(blah),
 		IsBase64Encoded:   false,
