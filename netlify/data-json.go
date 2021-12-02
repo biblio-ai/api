@@ -26,7 +26,10 @@ func json_handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProx
 	blah := string(data)
 	return &events.APIGatewayProxyResponse{
 		StatusCode:        200,
-		Headers:           map[string]string{"Content-Type": "text/json"},
+		Headers:           map[string]string{
+					"Content-Type": "text/json",
+				  	"Access-Control-Allow-Origin": "*",
+		},
 		MultiValueHeaders: http.Header{"Set-Cookie": {"Ding", "Ping"}},
 		Body:              blah,
 		IsBase64Encoded:   false,
