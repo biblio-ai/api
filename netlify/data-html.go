@@ -25,7 +25,7 @@ func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResp
         if len(metadata_model) == 0 {
           data_id = Request("https://hgrqtmovrbvpvxjqungh.supabase.co/rest/v1/item_metadata_transpose?"+metadata_key+"=eq."+metadata_value+"&order=model.desc.nullslast&limit=1")
         } else {
-          data_id = Request("https://hgrqtmovrbvpvxjqungh.supabase.co/rest/v1/item_metadata_transpose?"+metadata_key+"=eq."+metadata_value+"&and=(model.eq."+metadata_model+"&limit=1)")
+          data_id = Request("https://hgrqtmovrbvpvxjqungh.supabase.co/rest/v1/item_metadata_transpose?"+metadata_key+"=eq."+metadata_value+"&and=(model.eq."+metadata_model+")&limit=1")
         }
 
         //	data_id := Request( "https://hgrqtmovrbvpvxjqungh.supabase.co/rest/v1/item_metadata?metadata_key=eq."+metadata_key+"&metadata_value=eq."+metadata_value )
